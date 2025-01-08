@@ -1,13 +1,11 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Make sure to install axios
 
 function RegistrationForm() {
   const { formData, setFormData, setIsLogin } = useContext(AppContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
-  const [isLoading, setIsLoading, setToken] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -73,7 +71,7 @@ function RegistrationForm() {
     e.preventDefault();
     if (validate()) {
       // Update login state
-      setIsLogin(true);
+      setIsLogin(true);      
       // Navigate to protected route
       navigate("/test-auth");
     }
@@ -82,7 +80,7 @@ function RegistrationForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-lg mx-auto p-8 bg-white shadow-md rounded-md"
+      className="max-w-lg mx-auto p-8 bg-white shadow-md rounded-md mt-2"
     >
       <h2 className="text-2xl font-bold mb-6">Registration Form</h2>
 

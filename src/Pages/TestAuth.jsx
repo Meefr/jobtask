@@ -4,7 +4,7 @@ import { AppContext } from "../Context/AppContext";
 const TestAuth = () => {
   const { formData } = useContext(AppContext);
   return (
-    <div className="bg-black">
+    <div className="h-screen flex flex-col justify-center items-center gap-3">
       <h1>User Name,  {formData.name}</h1>
       <h1>Email,  {formData.email}</h1>
       <h1>Mobile Country Code,  {formData.mobile_country_code}</h1>
