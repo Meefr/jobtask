@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AppContext } from "../Context/AppContext";
-import { authService } from "../backend/authentications";
+import axios from "axios";
 
 const AppProvider = ({ children }) => {
   const [formData, setFormData] = useState({
@@ -15,20 +15,12 @@ const AppProvider = ({ children }) => {
     company_name: "",
     commercial_license_number: "",
   });
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    authService.isAuthenticated()
-  );
-  const [token, setToken] = useState(localStorage.getItem("TOKEN"))
-  const [isLogin, setIsLogin] = useState();
+  const [token, setToken] = useState()
   return (
     <AppContext.Provider
       value={{
         token,
         setToken,
-        isAuthenticated,
-        setIsAuthenticated,
-        isLogin,
-        setIsLogin,
         formData,
         setFormData,
       }}
