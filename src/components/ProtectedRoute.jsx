@@ -5,9 +5,9 @@ import { authService } from '../backend/authentications';
 
 const ProtectedRoute = ({ children }) => {
   // const isAuthenticated = authService.isAuthenticated();
-  const {isLogin,formData} = useContext(AppContext)
-  if (!isLogin /*|| !isAuthenticated*/) {
-    console.log(formData);
+  const {isLogin,formData,token} = useContext(AppContext)
+  console.log(token);
+  if (!isLogin /*|| !isAuthenticated*/ || !token) {
     
     return <Navigate to="/register" />;
   }

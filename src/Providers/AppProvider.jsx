@@ -18,10 +18,13 @@ const AppProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(
     authService.isAuthenticated()
   );
-  const [isLogin, setIsLogin] = useState(localStorage.getItem("token"));
+  const [token, setToken] = useState(localStorage.getItem("TOKEN"))
+  const [isLogin, setIsLogin] = useState();
   return (
     <AppContext.Provider
       value={{
+        token,
+        setToken,
         isAuthenticated,
         setIsAuthenticated,
         isLogin,

@@ -1,9 +1,10 @@
 import React, { useContext, useState } from "react";
 import { AppContext } from "../Context/AppContext";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function RegistrationForm() {
-  const { formData, setFormData, setIsLogin } = useContext(AppContext);
+  const { formData, setFormData, setIsLogin, setToken } = useContext(AppContext);
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
@@ -66,14 +67,30 @@ function RegistrationForm() {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
+  const handleRegister = async () => {
+    try {
+      const response = await axios.post("https://print.trendline.marketing/api/auth/register", formData);
+  
+      // Extract the token from the response
+      const token = response.data.data.token;
+  
+      // Save the token to localStorage or state
+      console.log("Token:", token);
+      localStorage.setItem("TOKEN", token);
+      setToken(token)
+      // Navigate to protected route
+      navigate("/test-auth");
+      
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       // Update login state
-      setIsLogin(true);      
-      // Navigate to protected route
-      navigate("/test-auth");
+      setIsLogin(true);    
+      await handleRegister();
     }
   };
 
